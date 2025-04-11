@@ -1,0 +1,23 @@
+name: Auto Insta Post
+
+on:
+  workflow_dispatch:  # Manuell starten über GitHub-Oberfläche
+  # schedule:
+  #   - cron: '0 8 * * *'  # Jeden Tag um 08:00 Uhr UTC
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install Dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y ffmpeg
+          pip install yt-dlp requests
+
+      - name: Run Post Script
+        run: python3 dampfbad_post_automation.py
